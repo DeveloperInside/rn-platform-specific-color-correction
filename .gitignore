@@ -64,3 +64,6 @@ buck-out/
 
 # Library
 lib/
+
+# custom
+utils/trash
