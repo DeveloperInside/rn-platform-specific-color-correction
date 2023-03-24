@@ -66,4 +66,5 @@ buck-out/
 lib/
 
 # custom
-utils/trash
+src/utils/trash.ts
+.vscode
