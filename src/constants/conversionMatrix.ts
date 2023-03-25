@@ -1,13 +1,19 @@
 export const DISPLAYP3_SRGB_ADAPTED = [
-  [1.2249, -0.2247, 0],
-  [-0.042, 1.0419, 0],
-  [-0.0197, -0.0786, 1.0979],
+  [1.2249, -0.22494, 6.4142e-8],
+  [-0.042057, 1.0421, 3.5723e-9],
+  [-0.019638, -0.078636, 1.0983],
+]
+
+export const SRGB_DISPLAYP3_ADAPTED = [
+  [0.82246, 0.17754, -1.1584e-7],
+  [0.033194, 0.96681, 6.1792e-8],
+  [0.017083, 0.072397, 0.91052],
 ]
 
 export const SRGB_XYZ_ADAPTED = [
-  [0.436, 0.385, 0.143],
-  [0.222, 0.717, 0.061],
-  [0.014, 0.097, 0.714],
+  [0.4360413, 0.3851129, 0.1430458],
+  [0.2224845, 0.7169051, 0.0606104],
+  [0.0139202, 0.0970672, 0.7139126],
 ]
 
 export const XYZ_SRGB_ADAPTED = [
@@ -16,20 +22,29 @@ export const XYZ_SRGB_ADAPTED = [
   [0.0719639, -0.2289939, 1.4057537],
 ]
 
-export const P3 = [
-  [0.5151, 0.292, 0.1571],
-  [0.2412, 0.6922, 0.0666],
-  [-0.0011, 0.0419, 0.7841],
-]
-
-export const P3_wide = [
+export const DISPLAYP3_XYZ_ADAPTED = [
   [0.5151187, 0.2919778, 0.1571035],
   [0.2411892, 0.6922441, 0.0665668],
   [-0.0010505, 0.0418791, 0.7840713],
 ]
 
-export const p3_xyz_srgb_3 = [
-  [1.2249, -0.22494, 6.4142e-8],
-  [-0.042057, 1.0421, 3.5723e-9],
-  [-0.019638, -0.078636, 1.0983],
+export const XYZ_DISPLAYP3_ADAPTED = [
+  [2.403984, -0.9899069, -0.3976415],
+  [-0.8422229, 1.7988437, 0.0160354],
+  [0.0482059, -0.0974068, 1.2740049],
 ]
+
+export const matrices = {
+  displayP3: {
+    srgb: DISPLAYP3_SRGB_ADAPTED,
+    xyz: DISPLAYP3_XYZ_ADAPTED,
+  },
+  srgb: {
+    displayP3: SRGB_DISPLAYP3_ADAPTED,
+    xyz: SRGB_XYZ_ADAPTED,
+  },
+  xyz: {
+    srgb: XYZ_SRGB_ADAPTED,
+    displayP3: XYZ_DISPLAYP3_ADAPTED,
+  },
+}
