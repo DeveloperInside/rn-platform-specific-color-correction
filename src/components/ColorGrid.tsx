@@ -1,48 +1,72 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
-import { FlatList, Platform, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 
-import { osBalanceColors, osColorBalance } from '../utils/functions'
+import { osColorBalance } from '../utils/functions'
 
-const colorMap = {
-  0: 'rgb(128, 128, 128)',
-  1: 'rgb(128, 205, 128)',
-  2: 'rgb(99, 208, 119)',
-  3: 'rgb(217, 38, 38)',
-  4: 'rgb(204, 51, 51)',
-  5: 'rgb(191, 64, 64)',
-  6: 'rgb(179, 77, 77)',
-  7: 'rgb(166, 89, 89)',
-  8: 'rgb(153, 102, 102)',
-  9: 'rgb(140, 115, 115)',
-  10: 'rgb(128, 128, 128)',
-  11: 'rgb(255, 0, 0)',
-}
+const colorMap = [
+  'rgb(128, 205, 128)',
+  'rgb(99, 208, 119)',
+  'rgb(217, 38, 38)',
+  'rgb(204, 51, 51)',
+  'rgb(191, 64, 64)',
+  'rgb(179, 77, 77)',
+  'rgb(166, 89, 89)',
+  'rgb(153, 102, 102)',
+  'rgb(140, 115, 115)',
+  'rgb(128, 128, 128)',
+  'rgb(255, 0, 0)',
+  'rgb(128, 128, 128)',
+
+]
+
+const colorTexts = [
+  'rgb(128, 205, 128)',
+  'rgb(99, 208, 119)',
+  'rgb(217, 38, 38)',
+  'rgb(204, 51, 51)',
+  'rgb(191, 64, 64)',
+  'rgb(179, 77, 77)',
+  'rgb(166, 89, 89)',
+  'rgb(153, 102, 102)',
+  'rgb(140, 115, 115)',
+  'rgb(128, 128, 128)',
+  'rgb(255, 0, 0)',
+  'rgb(128, 128, 128)',
+]
+
+const colors = [
+  'rgb(255, 0, 0)',
+  'rgb(255, 154, 0)',
+  'rgb(208, 222, 33)',
+  'rgb(79, 220, 74)',
+  'rgb(63, 218, 216)',
+  'rgb(47, 201, 226)',
+  'rgb(28, 127, 238)',
+  'rgb(95, 21, 242)',
+  'rgb(186, 12, 248)',
+  'rgb(251, 7, 217)',
+]
 
 const ColorGrid = () => {
-
-  // const conversionTest = osColorBalance('rgb(128, 205, 128)')
-
-  // console.log('conversionTest: ', conversionTest)
-
-  osBalanceColors(colorMap)
-  // console.log('converted colorMap: ', colorMap)
-
-  const renderItem = ({ item }: { item: string }) => {
+  osColorBalance(colorMap)
+  const renderItem = ({ item, index }: { item: string; index: number }) => {
     return (
       <View style={[styles.grid, { backgroundColor: item }]}>
         <Text>{item}</Text>
+        <Text>{colorTexts[index]}</Text>
       </View>
     )
   }
   return (
     <View style={styles.container}>
-      <FlatList
-        numColumns={2}
-        data={Object.values(colorMap)}
-        renderItem={renderItem}
-      />
+      <View style={[styles.grid, { backgroundColor: colorTexts[0] }]}>
+        <Text>{colorTexts[0]}</Text>
+      </View>
+      <View style={[styles.grid, { backgroundColor: colorTexts[1] }]}>
+        <Text>{colorTexts[1]}</Text>
+      </View>
+      <FlatList numColumns={2} data={colorMap} renderItem={renderItem} />
     </View>
   )
 }

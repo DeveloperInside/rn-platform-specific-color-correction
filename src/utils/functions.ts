@@ -1,6 +1,16 @@
 import { Platform, PlatformOSType } from 'react-native'
 
-import { matrices } from '../constants/conversionMatrix'
+import {
+  DISPLAY50_BRAD65_rgb50,
+  DISPLAY50_BRAD65_rgb65,
+  DISPLAYP3_50_SRGB_50_ADAPTED,
+  DISPLAYP3_50_SRGB_65_ADAPTED,
+  DISPLAYP3_50_XYZ_SRGB_65_ADAPTED,
+  DISPLAYP3_50_XYZ_SRGB_65_ADAPTED_R,
+  DISPLAYP3_65_SRGB_50_ADAPTED,
+  GPTSOLUTION,
+} from '../constants/conversionMatrix'
+// import { matrices } from '../constants/conversionMatrix'
 import {
   convert,
   detectColorFormat,
@@ -46,7 +56,7 @@ export function updateDeepValue(
 export function osColorBalance(
   colors: string | Object,
   platforms: PlatformOSType[] = ['ios'],
-  balanceFunction: (arg0: any) => number[] = shiftDisplayP3toSrgb
+  balanceFunction: (arg0: any) => number[] = shift_tests
 ) {
   if (!platforms.includes(Platform.OS)) {
     return colors
@@ -55,7 +65,20 @@ export function osColorBalance(
   const updateColor = (color: string) => {
     const colorFormat = detectColorFormat(color)
     const linearRgb = convert(color).toRgb.map((c) => c / 255)
-    const convertedColor = balanceFunction(linearRgb).map((c) => c * 255)
+    const convertedColor = balanceFunction(linearRgb).map(
+      (c) => Math.max(Math.min(Math.round(c * 255), 255), 0)
+      // c * 255
+    )
+
+    // let [r, g, b] = convertedColor
+    // ;[r, g, b] = [r * 0.9903, g * 0.9966, b * 0.967]
+    // ;[r, g, b] = [r, g, b].map(
+    //   (c) =>
+    //     // Math.max(Math.min(Math.round(c * 255), 255), 0)
+    //     c * 255
+    // )
+    // return rgbArrayToStringFormat([r, g, b], colorFormat)
+
     return rgbArrayToStringFormat(convertedColor, colorFormat)
   }
 
@@ -99,8 +122,12 @@ export function colorSpaceTransform(
   )
 }
 
-export function shiftDisplayP3toSrgb(linearRgb: number[]) {
-  return colorSpaceTransform(linearRgb, matrices.displayP3.srgb)
+// export function shiftDisplayP3toSrgb(linearRgb: number[]) {
+//   return colorSpaceTransform(linearRgb, matrices.displayP3.srgb)
+// }
+
+export function shift_tests(linearRgb: number[]) {
+  return colorSpaceTransform(linearRgb, DISPLAY50_BRAD65_rgb50)
 }
 
 export function osBalanceColors(
