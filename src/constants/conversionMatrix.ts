@@ -10,20 +10,10 @@ export const DISPLAYP3_50_SRGB_65_ADAPTED = [
   [-0.021657, -0.080713, 0.8241],
 ]
 
-// 1.2991	-0.13895	0.015856
-// -0.046849	1.0174	0.0051776
-// -0.021648	-0.080689	0.8244
-
 export const DISPLAYP3_65_SRGB_50_ADAPTED = [
   [1.1547, -0.30817, -0.019232],
   [-0.037485, 1.0669, -0.0071778],
   [-0.017418, -0.075868, 1.4636],
-]
-
-export const GPTSOLUTION = [
-  [1.2247, -0.2249, -8.5393e-7],
-  [-0.042057, 1.0421, 4.0644e-7],
-  [-0.019642, -0.078655, 1.0985],
 ]
 
 export const SRGB_50_DISPLAYP3_50_ADAPTED = [
@@ -73,16 +63,6 @@ export const XYZ_DISPLAYP3_50_ADAPTED = [
   [-0.8422229, 1.7988437, 0.0160354],
   [0.0482059, -0.0974068, 1.2740049],
 ]
-export const DISPLAYP3_50_XYZ_SRGB_65_ADAPTED = [
-  [1.275365, -0.158974, -0.116251],
-  [-0.039751, 1.021985, 0.017768],
-  [-0.02242, -0.066801, 1.088787],
-]
-export const DISPLAYP3_50_XYZ_SRGB_65_ADAPTED_R = [
-  [1.3751, -0.27217, -0.077455],
-  [0.1143, 0.91433, -0.021097],
-  [-0.00048515, -0.10528, 1.0967],
-]
 
 export const BRADFORD_D50_D65 = [
   [0.9555766, -0.0230393, 0.0631636],
@@ -96,28 +76,17 @@ export const BRADFORD_D65_D50 = [
   [-0.009243058152591178, 0.015055144896577895, 0.7518742899580008],
 ]
 
-export const DISPLAY50_BRAD65_rgb65 = [
-  [1.2249, -0.2248, 3.3152e-5],
-  [-0.042064, 1.0421, 1.386e-5],
-  [-0.019646, -0.078661, 1.0979],
-]
-export const DISPLAY50_BRAD65_rgb50 = [
-  [1.1548, -0.30807, -0.019189],
-  [-0.037492, 1.0669, -0.0071595],
-  [-0.017423, -0.075875, 1.4627],
-]
-
-// export const matrices = {
-//   displayP3: {
-//     srgb: DISPLAYP3_SRGB_ADAPTED,
-//     xyz: DISPLAYP3_XYZ_ADAPTED,
-//   },
-//   srgb: {
-//     displayP3: SRGB_DISPLAYP3_ADAPTED,
-//     xyz: SRGB_XYZ_ADAPTED,
-//   },
-//   xyz: {
-//     srgb: XYZ_SRGB_ADAPTED,
-//     displayP3: XYZ_DISPLAYP3_ADAPTED,
-//   },
-// }
+export const matrices = {
+  displayP3: {
+    srgb: DISPLAYP3_50_SRGB_50_ADAPTED,
+    xyz: DISPLAYP3_50_XYZ_ADAPTED,
+  },
+  srgb: {
+    displayP3: SRGB_50_DISPLAYP3_50_ADAPTED,
+    xyz: SRGB_50_XYZ_ADAPTED,
+  },
+  xyz: {
+    srgb: XYZ_SRGB_50_ADAPTED,
+    displayP3: XYZ_DISPLAYP3_50_ADAPTED,
+  },
+}
