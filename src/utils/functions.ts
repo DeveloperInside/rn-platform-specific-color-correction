@@ -1,22 +1,14 @@
 import { Platform, PlatformOSType } from 'react-native'
 
 import {
-  DISPLAY50_BRAD65_rgb50,
-  DISPLAY50_BRAD65_rgb65,
   DISPLAYP3_50_SRGB_50_ADAPTED,
-  DISPLAYP3_50_SRGB_65_ADAPTED,
-  DISPLAYP3_50_XYZ_SRGB_65_ADAPTED,
-  DISPLAYP3_50_XYZ_SRGB_65_ADAPTED_R,
-  DISPLAYP3_65_SRGB_50_ADAPTED,
-  GPTSOLUTION,
+  SRGB_50_DISPLAYP3_50_ADAPTED,
 } from '../constants/conversionMatrix'
-// import { matrices } from '../constants/conversionMatrix'
 import {
   convert,
   detectColorFormat,
-  hslArrayToString,
-  rgbToHex,
-  rgbToHsl,
+  linearTo8bit,
+  rgbArrayToStringFormat,
 } from './converters'
 
 export function updateDeepValue(
@@ -53,63 +45,54 @@ export function updateDeepValue(
   return updateObj
 }
 
+/**
+ * Updates a color by converting it from its original format to lineaar RGB, applying a
+ * transform function, and then converting it back to the original format.
+ *
+ * @param color - string -> 'rgb(255,255,255)', 'hsl(359, 100%, 50%)', '#ff0000'
+ * @param transformFunc - A function that accepts an array of RGB values and
+ *                          returns an array of modified RGB values. -> [1, 1, 1]
+ * @returns The updated color, in the same format as the input color.
+ */
+export const transformColor = (
+  color: string,
+  transformFunc: (arg0: any) => number[]
+) => {
+  const colorFormat = detectColorFormat(color)
+  const linearRgb = convert(color).toRgb.map((c) => c / 255)
+  const convertedColor = transformFunc(linearRgb)
+  const rgb8bit = linearTo8bit(convertedColor)
+
+  return rgbArrayToStringFormat(rgb8bit, colorFormat)
+}
+
+interface osColorBalanceOptions {
+  platforms?: PlatformOSType[]
+  balanceFunc?: (arg0: any) => number[]
+  clone?: boolean
+}
+
 export function osColorBalance(
   colors: string | Object,
-  platforms: PlatformOSType[] = ['ios'],
-  balanceFunction: (arg0: any) => number[] = shift_tests
+  options: osColorBalanceOptions = {}
 ) {
+  const {
+    platforms = ['ios'],
+    balanceFunc = shiftDisplayP3toSrgb,
+    clone = false,
+  } = options
+
   if (!platforms.includes(Platform.OS)) {
     return colors
   }
 
-  const updateColor = (color: string) => {
-    const colorFormat = detectColorFormat(color)
-    const linearRgb = convert(color).toRgb.map((c) => c / 255)
-    const convertedColor = balanceFunction(linearRgb).map(
-      (c) => Math.max(Math.min(Math.round(c * 255), 255), 0)
-      // c * 255
-    )
+  const updatedColors = updateDeepValue(
+    colors,
+    (color: string) => transformColor(color, balanceFunc),
+    clone
+  )
 
-    // let [r, g, b] = convertedColor
-    // ;[r, g, b] = [r * 0.9903, g * 0.9966, b * 0.967]
-    // ;[r, g, b] = [r, g, b].map(
-    //   (c) =>
-    //     // Math.max(Math.min(Math.round(c * 255), 255), 0)
-    //     c * 255
-    // )
-    // return rgbArrayToStringFormat([r, g, b], colorFormat)
-
-    return rgbArrayToStringFormat(convertedColor, colorFormat)
-  }
-
-  if (typeof colors === 'string') {
-    return updateColor(colors)
-  }
-
-  if (typeof colors === 'object') {
-    const updatedColors = updateDeepValue(colors, (color: string) =>
-      updateColor(color)
-    )
-    return updatedColors
-  }
-}
-
-export function rgbArrayToStringFormat(
-  rgb: number[],
-  format: 'rgb' | 'hsl' | 'hex' = 'rgb'
-) {
-  const [r, g, b] = rgb
-  switch (format) {
-    case 'rgb':
-      return `rgb(${r}, ${g}, ${b})`
-    case 'hsl':
-      const hsl = rgbToHsl([r, g, b])
-      const hslString = hslArrayToString(hsl)
-      return hslString
-    case 'hex':
-      const hex = rgbToHex([r, g, b])
-      return hex
-  }
+  return updatedColors
 }
 
 export function colorSpaceTransform(
@@ -122,18 +105,46 @@ export function colorSpaceTransform(
   )
 }
 
-// export function shiftDisplayP3toSrgb(linearRgb: number[]) {
-//   return colorSpaceTransform(linearRgb, matrices.displayP3.srgb)
-// }
-
-export function shift_tests(linearRgb: number[]) {
-  return colorSpaceTransform(linearRgb, DISPLAY50_BRAD65_rgb50)
+export function gammaCorrection22(linearRgb: number[]) {
+  //Display P3 transfer function gamma correction
+  const GAMMA = 2.2
+  return linearRgb.map((c) => Math.pow(c, GAMMA))
 }
 
-export function osBalanceColors(
-  colors: object
-  // platform: PlatformOSType,
-  // balanceMatrix?: [[number], [number], [number]]
-) {
-  updateDeepValue(colors, osColorBalance)
+export function sRgbTransferFunc(linearRgb: number[]) {
+  const GAMMA = 2.4
+  return linearRgb.map((c) =>
+    c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, GAMMA)
+  )
+}
+
+export function sRgbTransferFuncReverse(linearRgb: number[]) {
+  const GAMMA = 2.4
+  return linearRgb.map((c) =>
+    c <= 0.0031308 ? 12.92 * c : (1 + 0.055) * Math.pow(c, 1 / GAMMA) - 0.055
+  )
+}
+
+export function shiftDisplayP3toSrgb(linearRgb: number[]) {
+  let color = linearRgb
+  // Gamma correction
+  color = sRgbTransferFunc(color)
+  // Convert P3 color space to sRGB color space
+  color = colorSpaceTransform(color, DISPLAYP3_50_SRGB_50_ADAPTED)
+  // Apply reverse gamma correction
+  color = sRgbTransferFuncReverse(color)
+
+  return color
+}
+
+export function shiftSrgbToDisplayP3(linearRgb: number[]) {
+  let color = linearRgb
+  // Apply reverse gamma correction
+  color = sRgbTransferFuncReverse(color)
+  // Convert P3 color space to sRGB color space
+  color = colorSpaceTransform(color, SRGB_50_DISPLAYP3_50_ADAPTED)
+  // Gamma correction
+  color = sRgbTransferFunc(color)
+
+  return color
 }
