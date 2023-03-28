@@ -53,7 +53,6 @@ export function hexToRgb(hex: string) {
   return [0, 0, 0]
 }
 
-// Rgb to color
 export function rgbToHsl([r, g, b]: number[]): number[] {
   r /= 255
   g /= 255
@@ -141,6 +140,28 @@ export function rgbStringToArray(rgbString: string) {
   }
   console.warn(`Invalid rgb string ${rgbString}`)
   return [0, 0, 0]
+}
+
+export function rgbArrayToStringFormat(
+  rgb: number[],
+  format: 'rgb' | 'hsl' | 'hex' = 'rgb'
+) {
+  const [r, g, b] = rgb
+  switch (format) {
+    case 'rgb':
+      return `rgb(${r}, ${g}, ${b})`
+    case 'hsl':
+      const hsl = rgbToHsl([r, g, b])
+      const hslString = hslArrayToString(hsl)
+      return hslString
+    case 'hex':
+      const hex = rgbToHex([r, g, b])
+      return hex
+  }
+}
+
+export function linearTo8bit(linearRgb: number[]) {
+  return linearRgb.map((c) => Math.max(Math.min(Math.round(c * 255), 255), 0))
 }
 
 export function rgbArrayToString([r, g, b]: number[]) {
