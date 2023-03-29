@@ -76,17 +76,32 @@ export const BRADFORD_D65_D50 = [
   [-0.009243058152591178, 0.015055144896577895, 0.7518742899580008],
 ]
 
-export const matrices = {
-  displayP3: {
-    srgb: DISPLAYP3_50_SRGB_50_ADAPTED,
-    xyz: DISPLAYP3_50_XYZ_ADAPTED,
+export const CONVERSION_MATRIX = {
+  DISPLAYP3: {
+    D50: {
+      SRGB: DISPLAYP3_50_SRGB_50_ADAPTED,
+      XYZ: DISPLAYP3_50_XYZ_ADAPTED,
+    },
+    D65: {
+      XYZ: DISPLAYP3_65_XYZ_ADAPTED,
+    },
   },
-  srgb: {
-    displayP3: SRGB_50_DISPLAYP3_50_ADAPTED,
-    xyz: SRGB_50_XYZ_ADAPTED,
+  SRGB: {
+    D50: {
+      DISPLAYP3: SRGB_50_DISPLAYP3_50_ADAPTED,
+      XYZ: SRGB_50_XYZ_ADAPTED,
+    },
+    D65: {
+      XYZ: SRGB_65_XYZ_ADAPTED,
+    },
   },
-  xyz: {
-    srgb: XYZ_SRGB_50_ADAPTED,
-    displayP3: XYZ_DISPLAYP3_50_ADAPTED,
+  XYZ: {
+    D50: {
+      DISPLAYP3: XYZ_DISPLAYP3_50_ADAPTED,
+      SRGB: XYZ_SRGB_50_ADAPTED,
+    },
+    D65: {
+      SRGB: XYZ_SRGB_65_ADAPTED,
+    },
   },
 }
