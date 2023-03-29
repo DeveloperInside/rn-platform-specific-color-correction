@@ -104,4 +104,8 @@ export const CONVERSION_MATRIX = {
       SRGB: XYZ_SRGB_65_ADAPTED,
     },
   },
+  BRADFORD: {
+    D50_D65: BRADFORD_D50_D65,
+    D65_D50: BRADFORD_D65_D50,
+  },
 }
