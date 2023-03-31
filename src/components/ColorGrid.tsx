@@ -1,12 +1,13 @@
 import React from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 
-import { osColorBalance } from '../utils/functions'
+import osColorBalance from '../scripts/osColorBalance'
 
 const colorMap = [
   'rgb(155, 34, 38)',
   'rgb(174, 32, 18)',
   'rgb(187, 62, 3)',
+  'rgb(187, 62, 30)',
   'rgb(202, 103, 2)',
   'rgb(238, 155, 0)',
   'rgb(233, 216, 166)',
@@ -18,7 +19,7 @@ const colorMap = [
 
 const ColorGrid = () => {
   const convertedColors = osColorBalance(colorMap, { clone: true })
-  console.log(convertedColors)
+  console.log('typeof convertedColors', typeof convertedColors)
 
   const renderItem = ({ item }: { item: string; index: number }) => {
     return (
