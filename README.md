@@ -143,12 +143,12 @@ Takes two numbers and returns the sum.
 Most standard panels and Android phones use sRGB color space. But ios prefers using DisplayP3 color space which has a wider gamut that means can display more colors on the screen. 
 If we compare two color spaces, you can see the difference clearly. 
 
-[DisplayP3 vs sRGB](/assets/p3-vs-srgb.png)
+![DisplayP3 vs sRGB](/assets/p3-vs-srgb.png)
 
 We mostly pick our colors from sRGB color space, and if we want to use the same colors on IOS, we need to convert these colors. 
 You can make this conversion using this library or manually for IOS distribution by using the colorsync utility app with a Mac.
 
-[colorsync sample](/assets/colorsync-sample.png)
+![colorsync sample](/assets/colorsync-sample.png)
 
 As you can see, there is a slight difference between the red, green, and blue color values of this mustard color in two color spaces. If we want to catch up with consistency between platforms, we need conversion.
 
@@ -210,10 +210,10 @@ Both before and after utilizing this transformation matrix, it is necessary to a
 sRGB and DisplayP3 use the same transfer function. You can find how to calculate the transfer function and more info at https://en.wikipedia.org/wiki/SRGB
 
 sRGB to CIE XYZ transfer function  
-[transfer function gamma](/assets/gamma-srgb-to-xyz.svg)
+![transfer function gamma](/assets/gamma-srgb-to-xyz.svg)
 
 CIE XYZ to sRGB transfer function  
-[reverse transfer function gamma](/assets/gamma-xyz-to-srgb.svg)
+![reverse transfer function gamma](/assets/gamma-xyz-to-srgb.svg)
 
 ## Credits
 
