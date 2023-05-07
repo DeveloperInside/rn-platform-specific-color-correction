@@ -13,6 +13,10 @@
     "strict": true,
     "target": "ES2018",
   },
+  "typedocOptions": {
+    "entryPoints": ["src/index.tsx"],
+    "out": "docs"
+  },
   "exclude": ["**/__tests__/*"],
   "include": ["src"]
 }
