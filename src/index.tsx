@@ -11,6 +11,7 @@ import {
   transformColor,
 } from './scripts/functions'
 import osColorBalance from './scripts/osColorBalance'
+import { updateDeepValue } from './scripts/utils'
 
 export {
   applyColorConversionMatrix,
@@ -22,6 +23,7 @@ export {
   sRgbTransferFunc,
   sRgbTransferFuncReverse,
   transformColor,
+  updateDeepValue,
 }
 
 export default NativeModules.PSColorCorrectionModule
