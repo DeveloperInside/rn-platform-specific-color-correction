@@ -7,6 +7,10 @@ Have you ever noticed that colors on Android and iOS devices appear slightly dif
 
 This library resolves the issue of inconsistent colors between Android and iOS platforms by performing a color space conversion. This allows the colors to appear almost identical on both platforms, although it's important to note that some technical limitations exist.
 
+iOS            |  Android
+:-------------------------:|:-------------------------:
+![ios color correction](/assets/ios-color-correction-fix-ss.png)  |  ![android color correction](/assets/android-color-correction-fix-ss.png)
+
 ## Installation
 
 ```bash
