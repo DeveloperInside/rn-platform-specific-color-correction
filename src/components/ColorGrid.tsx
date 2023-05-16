@@ -6,9 +6,8 @@ import osColorBalance from '../scripts/osColorBalance'
 const colorMap = [
   'rgb(155, 34, 38)',
   'rgb(174, 32, 18)',
-  'rgb(187, 62, 3)',
   'rgb(187, 62, 30)',
-  'rgb(202, 103, 2)',
+  'rgb(202, 103, 20)',
   'rgb(238, 155, 0)',
   'rgb(233, 216, 166)',
   'rgb(148, 210, 189)',
