@@ -1,0 +1,226 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>platform-specific-color-correction</title><meta name="description" content="Documentation for platform-specific-color-correction"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/search.js" id="tsd-search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">platform-specific-color-correction</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<h2>platform-specific-color-correction</h2></div>
+<div class="tsd-panel tsd-typography"><a id="md:platform-specific-color-correction" class="tsd-anchor"></a><h1><a href="#md:platform-specific-color-correction">Platform-Specific-Color-Correction</a></h1><p>Have you ever noticed that colors on Android and iOS devices appear slightly different when you build your app using React Native? The culprit of this problem is the differing color spaces used by each platform; while Android uses the sRGB color space, iOS employs the DisplayP3 color space.</p>
+<p><img src="/assets/p3-srgb-lab.gif" alt="DisplayP3 sRGB spaces"></p>
+<p>This library resolves the issue of inconsistent colors between Android and iOS platforms by performing a color space conversion. This allows the colors to appear almost identical on both platforms, although it&#39;s important to note that some technical limitations exist.</p>
+<a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><pre><code class="language-bash"><span class="hl-0">  </span><span class="hl-1">npm</span><span class="hl-0"> </span><span class="hl-2">install</span><span class="hl-0"> </span><span class="hl-2">platform-specific-color-correction</span>
+</code><button>Copy</button></pre>
+<a id="md:usageexamples" class="tsd-anchor"></a><h2><a href="#md:usageexamples">Usage/Examples</a></h2><p>If you have a theme object that contains your colors, you can simply call osColorBalance(themeObject) once, and it will update all the colors in the object. Here&#39;s an example:</p>
+<pre><code class="language-javascript"><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">theme</span><span class="hl-0"> = {</span><br/><span class="hl-0">    </span><span class="hl-5">dark:</span><span class="hl-0"> {</span><br/><span class="hl-0">        </span><span class="hl-5">primary:</span><span class="hl-0"> </span><span class="hl-2">&#39;#FF5733&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">        </span><span class="hl-5">secondary:</span><span class="hl-0"> </span><span class="hl-2">&#39;#00C9A7&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">        </span><span class="hl-5">background:</span><span class="hl-0"> </span><span class="hl-2">&#39;#F6F6F6&#39;</span><br/><span class="hl-0">    }</span><br/><span class="hl-0">};</span><br/><br/><span class="hl-3">function</span><span class="hl-0"> </span><span class="hl-1">App</span><span class="hl-0">() {</span><br/><span class="hl-0">    </span><span class="hl-1">useEffect</span><span class="hl-0">(()</span><span class="hl-3">=&gt;</span><span class="hl-0">{</span><br/><span class="hl-0">        </span><span class="hl-1">osColorBalance</span><span class="hl-0">(</span><span class="hl-5">theme</span><span class="hl-0">); </span><span class="hl-6">// This will update the colors   in the theme object</span><br/><span class="hl-0">    },[])</span><br/><br/><span class="hl-0">  </span><span class="hl-7">return</span><span class="hl-0"> </span><span class="hl-8">&lt;</span><span class="hl-9">Navigation</span><span class="hl-0"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-0">}</span>
+</code><button>Copy</button></pre>
+<p>If you prefer not to modify your original theme object, you can use the clone property when calling osColorBalance(). Here&#39;s an example:</p>
+<pre><code class="language-javascript"><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">balancedColors</span><span class="hl-0"> = </span><span class="hl-1">osColorBalance</span><span class="hl-0">(</span><span class="hl-5">theme</span><span class="hl-0">, { </span><span class="hl-5">clone:</span><span class="hl-0"> </span><span class="hl-3">true</span><span class="hl-0"> });</span>
+</code><button>Copy</button></pre>
+<p>In this case, osColorBalance() will create a new object called balancedColors that contains the adjusted colors. The original theme object will remain unchanged. This can be useful if you want to preserve the original color values for some reason.</p>
+<p>The osColorBalance function supports various formats for colors that can be used as input. The accepted formats include:</p>
+<ul>
+<li><p>A single color string in the format of:</p>
+<ul>
+<li>rgb(red, green, blue) where red, green, and blue are integers between 0 and 255.</li>
+<li>hsl(hue, saturation, lightness) where hue is an angle between 0 and 360, and saturation and lightness are percentages between 0% and 100%.</li>
+<li>A six-digit hex value in the format #RRGGBB where RR, GG, and BB are hexadecimal values between 00 and FF.</li>
+</ul>
+</li>
+<li><p>An object with nested values, where the final value must be a color string. For example:</p>
+</li>
+</ul>
+<pre><code class="language-javascript"><br/><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-10">primary</span><span class="hl-0">: </span><span class="hl-2">&#39;rgb(255, 0, 0)&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-10">secondary</span><span class="hl-0">: {</span><br/><span class="hl-0">    </span><span class="hl-10">light</span><span class="hl-0">: </span><span class="hl-2">&#39;#00FF00&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-10">dark</span><span class="hl-0">: </span><span class="hl-2">&#39;hsl(240, 100%, 50%)&#39;</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span>
+</code><button>Copy</button></pre>
+<a id="md:parameters" class="tsd-anchor"></a><h3><a href="#md:parameters">Parameters</a></h3><ul>
+<li>colors - The colors to apply the color balance to. The colors can be specified as:<ul>
+<li>A single color string in the format of &#39;rgb(255, 255, 255)&#39;, &#39;hsl(359, 100%, 50%)&#39;, or a six-digit hex value.</li>
+<li>An object with nested values, where the final value must be a color string.</li>
+<li>An array of color strings or objects with nested values, where the final value of each object must be a color string.</li>
+</ul>
+</li>
+<li>options - An optional object containing options for the color balance. It can have the following properties:<ul>
+<li>platforms - An optional array of platform names to apply the color balance to. The default value is [&#39;ios&#39;].</li>
+<li>balanceFunc - An optional color balance function to use. The default value is shiftDisplayP3toSrgb.</li>
+<li>clone - An optional boolean indicating whether to clone the input colors before applying the color balance. The default value is false.</li>
+</ul>
+</li>
+</ul>
+<a id="md:return-value" class="tsd-anchor"></a><h4><a href="#md:return-value">Return value</a></h4><p>osColorBalance returns the adjusted colors. If the clone option is set to true, it will return a new object with the adjusted colors. Otherwise, it will modify the original object passed as the first parameter.</p>
+<pre><code class="language-javascript"><span class="hl-6">// Example 1: Applying color balance to a single color string</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">color</span><span class="hl-0"> = </span><span class="hl-1">osColorBalance</span><span class="hl-0">(</span><span class="hl-2">&#39;rgb(113, 36, 161)&#39;</span><span class="hl-0">);</span><br/><br/><span class="hl-6">// Example 2: Applying color balance to an object with nested values</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">colorsObj</span><span class="hl-0"> = {</span><br/><span class="hl-0">  </span><span class="hl-5">primary:</span><span class="hl-0"> </span><span class="hl-2">&#39;rgb(0, 128, 0)&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-5">secondary:</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-5">light:</span><span class="hl-0"> </span><span class="hl-2">&#39;hsl(359, 26%, 67%)&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-5">dark:</span><span class="hl-0"> </span><span class="hl-2">&#39;hsl(206, 100%, 10%)&#39;</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">};</span><br/><br/><span class="hl-6">// Modify the original object</span><br/><span class="hl-1">osColorBalance</span><span class="hl-0">(</span><span class="hl-5">colorsObj</span><span class="hl-0">);</span><br/><br/><span class="hl-6">// Example 3: Applying color balance to an array of color strings and objects with nested values</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">colorsArr</span><span class="hl-0"> = [</span><br/><span class="hl-0">  </span><span class="hl-2">&#39;rgb(43, 114, 164)&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  {</span><br/><span class="hl-0">    </span><span class="hl-5">light:</span><span class="hl-0"> </span><span class="hl-2">&#39;hsl(275, 48%, 36%)&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-5">dark:</span><span class="hl-0"> </span><span class="hl-2">&#39;hsl(136, 35%, 54%)&#39;</span><br/><span class="hl-0">  },</span><br/><span class="hl-0">  </span><span class="hl-2">&#39;#1d781d&#39;</span><br/><span class="hl-0">];</span><br/><br/><span class="hl-6">// Clone the original object and apply color balance to android and web platforms</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">updatedColorsArr</span><span class="hl-0"> = </span><span class="hl-1">osColorBalance</span><span class="hl-0">(</span><span class="hl-5">colorsArr</span><span class="hl-0">, {</span><br/><span class="hl-0">  </span><span class="hl-5">platforms:</span><span class="hl-0"> [</span><span class="hl-2">&#39;android&#39;</span><span class="hl-0">, </span><span class="hl-2">&#39;web&#39;</span><span class="hl-0">],</span><br/><span class="hl-0">  </span><span class="hl-5">balanceFunc:</span><span class="hl-0"> </span><span class="hl-5">shiftSrgbToDisplayP3</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-5">clone:</span><span class="hl-0"> </span><span class="hl-3">true</span><br/><span class="hl-0">});</span>
+</code><button>Copy</button></pre>
+<a id="md:api-reference" class="tsd-anchor"></a><h2><a href="#md:api-reference">API Reference</a></h2><p>Update Here!!!</p>
+<a id="md:get-all-items" class="tsd-anchor"></a><h4><a href="#md:get-all-items">Get all items</a></h4><pre><code class="language-http"><span class="hl-0">  GET /api/items</span>
+</code><button>Copy</button></pre>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>api_key</code></td>
+<td align="left"><code>string</code></td>
+<td align="left"><strong>Required</strong>. Your API key</td>
+</tr>
+</tbody></table>
+<a id="md:get-item" class="tsd-anchor"></a><h4><a href="#md:get-item">Get item</a></h4><pre><code class="language-http"><span class="hl-0">  GET /api/items/${id}</span>
+</code><button>Copy</button></pre>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>id</code></td>
+<td align="left"><code>string</code></td>
+<td align="left"><strong>Required</strong>. Id of item to fetch</td>
+</tr>
+</tbody></table>
+<a id="md:addnum1-num2" class="tsd-anchor"></a><h4><a href="#md:addnum1-num2">add(num1, num2)</a></h4><p>Takes two numbers and returns the sum.</p>
+<a id="md:further-info" class="tsd-anchor"></a><h2><a href="#md:further-info">Further Info</a></h2><p>Most standard panels and Android phones use sRGB color space. But ios prefers using DisplayP3 color space which has a wider gamut that means can display more colors on the screen. 
+If we compare two color spaces, you can see the difference clearly. </p>
+<p><img src="/assets/p3-vs-srgb.png" alt="DisplayP3 vs sRGB"></p>
+<p>We mostly pick our colors from sRGB color space, and if we want to use the same colors on IOS, we need to convert these colors. 
+You can make this conversion using this library or manually for IOS distribution by using the colorsync utility app with a Mac.</p>
+<p><img src="/assets/colorsync-sample.png" alt="colorsync sample"></p>
+<p>As you can see, there is a slight difference between the red, green, and blue color values of this mustard color in two color spaces. If we want to catch up with consistency between platforms, we need conversion.</p>
+<a id="md:how-to-convert-one-color-space-to-another" class="tsd-anchor"></a><h3><a href="#md:how-to-convert-one-color-space-to-another">How to convert one color space to another?</a></h3><a id="md:what-is-color-space" class="tsd-anchor"></a><h4><a href="#md:what-is-color-space">What is color space?</a></h4><p>First, we need to understand what colorspace is.</p>
+<p>A color space is a mathematical model that defines a range of colors that can be represented and displayed on a particular device or medium. It is essentially a way of mapping colors to a set of coordinates, which allows them to be represented and manipulated digitally.</p>
+<p>Color spaces are typically defined by a set of <strong>primary colors</strong>, <strong>a white point</strong>, and <strong>a gamma curve</strong>. </p>
+<p><strong>The primary colors</strong> are the colors that can be mixed together to create all other colors within the color space. For example, the primary colors of the RGB color space are red, green, and blue.</p>
+<p><strong>The white point</strong> represents the brightest or whitest color that can be displayed within the color space. It is used as a reference point for other colors within the space.</p>
+<p><strong>The gamma curve</strong> describes how the intensity of the colors in the color space are distributed. It essentially maps the input values to the output values, which determines how bright or dark the colors appear on a display.</p>
+<p>There are many different color spaces that are used for different purposes, such as RGB (used for displays and digital images), CMYK (used for printing), and LAB (used for scientific color analysis). Each color space has its own set of primary colors, a white point, and a gamma curve, which makes them suitable for different applications.</p>
+<p>Color spaces are important because they allow us to accurately represent and manipulate colors digitally. When working with digital images, it&#39;s important to use the appropriate color space to ensure that the colors are displayed correctly on different devices and media. Color spaces also allow us to convert colors between different spaces, which is useful when working with images or graphics that need to be displayed on different devices or media.</p>
+<a id="md:how-to-convert--displayp3-color-space-to-srgb" class="tsd-anchor"></a><h4><a href="#md:how-to-convert--displayp3-color-space-to-srgb">How to convert  DisplayP3 color space to sRGB?</a></h4><p>If we wish to change a color from one color space to another, we must calculate the transformation matrix. This matrix helps us establish the correlation between a point in one color space and its corresponding point in another color space.</p>
+<p>If you are curious about how these matrices calculate, you can check this website. 
+<a href="http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html">http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html</a></p>
+<p>We can use XYZ color-space as an intermediate color-space to calculate the direct transformation matrix from DisplayP3 to sRGB.</p>
+<pre><code class="language-javascript"><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">DISPLAYP3_50_XYZ_ADAPTED</span><span class="hl-0"> = [</span><br/><span class="hl-0">[</span><span class="hl-11">0.5151187</span><span class="hl-0">, </span><span class="hl-11">0.2919778</span><span class="hl-0">, </span><span class="hl-11">0.1571035</span><span class="hl-0">],</span><br/><span class="hl-0">[</span><span class="hl-11">0.2411892</span><span class="hl-0">, </span><span class="hl-11">0.6922441</span><span class="hl-0">, </span><span class="hl-11">0.0665668</span><span class="hl-0">],</span><br/><span class="hl-0">[-</span><span class="hl-11">0.0010505</span><span class="hl-0">, </span><span class="hl-11">0.0418791</span><span class="hl-0">, </span><span class="hl-11">0.7840713</span><span class="hl-0">],</span><br/><span class="hl-0">]</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">XYZ_SRGB_50_ADAPTED</span><span class="hl-0"> = [</span><br/><span class="hl-0">[</span><span class="hl-11">3.1341864</span><span class="hl-0">, -</span><span class="hl-11">1.617209</span><span class="hl-0">, -</span><span class="hl-11">0.4906941</span><span class="hl-0">],</span><br/><span class="hl-0">[-</span><span class="hl-11">0.9787485</span><span class="hl-0">, </span><span class="hl-11">1.9161301</span><span class="hl-0">, </span><span class="hl-11">0.0334334</span><span class="hl-0">],</span><br/><span class="hl-0">[</span><span class="hl-11">0.0719639</span><span class="hl-0">, -</span><span class="hl-11">0.2289939</span><span class="hl-0">, </span><span class="hl-11">1.4057537</span><span class="hl-0">],</span><br/><span class="hl-0">]</span>
+</code><button>Copy</button></pre>
+<p>If we multiply these matrices, we obtain a direct transformation matrix of DisplayP3 to sRGB.</p>
+<pre><code class="language-javascript"><span class="hl-7">export</span><span class="hl-0"> </span><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">DISPLAYP3_SRGB_50_ADAPTED</span><span class="hl-0"> = [</span><br/><span class="hl-0">[</span><span class="hl-11">1.2249</span><span class="hl-0">, -</span><span class="hl-11">0.22494</span><span class="hl-0">, </span><span class="hl-11">6.4142e-8</span><span class="hl-0">],</span><br/><span class="hl-0">[-</span><span class="hl-11">0.042057</span><span class="hl-0">, </span><span class="hl-11">1.0421</span><span class="hl-0">, </span><span class="hl-11">3.5723e-9</span><span class="hl-0">],</span><br/><span class="hl-0">[-</span><span class="hl-11">0.019638</span><span class="hl-0">, -</span><span class="hl-11">0.078636</span><span class="hl-0">, </span><span class="hl-11">1.0983</span><span class="hl-0">],</span><br/><span class="hl-0">]</span>
+</code><button>Copy</button></pre>
+<a id="md:transfer-function-gamma" class="tsd-anchor"></a><h4><a href="#md:transfer-function-gamma">Transfer function (Gamma)</a></h4><p>Gamma encoding of images is used to optimize the usage of bits when encoding an image, or bandwidth used to transport an image, by taking advantage of the non-linear manner in which humans perceive light and color.</p>
+<p>Both before and after utilizing this transformation matrix, it is necessary to account for gamma (transfer function).<br>sRGB and DisplayP3 use the same transfer function. You can find how to calculate the transfer function and more info at <a href="https://en.wikipedia.org/wiki/SRGB">https://en.wikipedia.org/wiki/SRGB</a></p>
+<p>sRGB to CIE XYZ transfer function<br><img src="/assets/gamma-srgb-to-xyz.svg" alt="transfer function gamma"></p>
+<p>CIE XYZ to sRGB transfer function<br><img src="/assets/gamma-xyz-to-srgb.svg" alt="reverse transfer function gamma"></p>
+<a id="md:credits" class="tsd-anchor"></a><h2><a href="#md:credits">Credits</a></h2><ul>
+<li><a href="http://endavid.com/index.php?entry=79">Exploring the display-P3 color space</a></li>
+<li><a href="http://www.brucelindbloom.com/">Bruce Lindbloom</a></li>
+<li><a href="http://www.russellcottrell.com/photo/matrixCalculator.htm">Russell Cottrell matrix calculator</a></li>
+<li><a href="https://en.wikipedia.org/wiki/SRGB">Wiki sRGB</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gamma_correction">Wiki Gamma</a></li>
+</ul>
+<a id="md:contributing" class="tsd-anchor"></a><h2><a href="#md:contributing">Contributing</a></h2><p>Thank you for considering contributing to this library! Here are some guidelines to help you get started.</p>
+<a id="md:how-to-contribute" class="tsd-anchor"></a><h3><a href="#md:how-to-contribute">How to contribute</a></h3><ol>
+<li>Fork this repository to your own GitHub account and clone it to your local machine.</li>
+<li>Create a new branch for your changes: <code>git checkout -b my-new-feature</code>.</li>
+<li>Make your changes and test them thoroughly.</li>
+<li>Commit your changes: <code>git commit -m &#39;Add some feature&#39;</code>.</li>
+<li>Push to the branch: <code>git push origin my-new-feature</code>.</li>
+<li>Create a new Pull Request and provide a clear and descriptive title.</li>
+</ol>
+<a id="md:coding-conventions" class="tsd-anchor"></a><h3><a href="#md:coding-conventions">Coding conventions</a></h3><p>Please follow these coding conventions when contributing to the library:</p>
+<ul>
+<li>Use 2 spaces for indentation.</li>
+<li>Use single quotes for strings.</li>
+<li>Use camelCase for variables and functions.</li>
+<li>Use PascalCase for classes and constructors.</li>
+<li>Use JSDoc-style comments to document your code.</li>
+</ul>
+<a id="md:testing" class="tsd-anchor"></a><h3><a href="#md:testing">Testing</a></h3><p>Please make sure your changes are thoroughly tested before submitting a Pull Request. </p>
+<a id="md:issues-and-feature-requests" class="tsd-anchor"></a><h3><a href="#md:issues-and-feature-requests">Issues and feature requests</a></h3><p>If you find a bug or have a feature request, please open an issue on GitHub. Please provide as much detail as possible, including the steps to reproduce the issue or a description of the feature you would like to see.</p>
+<a id="md:license" class="tsd-anchor"></a><h3><a href="#md:license">License</a></h3><p>By contributing to the library, you agree that your contributions will be licensed under the MIT License.</p>
+<a id="md:support" class="tsd-anchor"></a><h2><a href="#md:support">Support</a></h2><p>For support, email <a href="mailto:touch@ighda.com">touch@ighda.com</a>.</p>
+<a id="md:license-1" class="tsd-anchor"></a><h2><a href="#md:license-1">License</a></h2><p><a href="/LICENSE">MIT</a></p>
+</div></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li>
+<ul>
+<li><a href="#md:platform-specific-color-correction"><span>Platform-<wbr/>Specific-<wbr/>Color-<wbr/>Correction</span></a></li>
+<li>
+<ul>
+<li><a href="#md:installation"><span>Installation</span></a></li>
+<li><a href="#md:usageexamples"><span>Usage/<wbr/>Examples</span></a></li>
+<li>
+<ul>
+<li><a href="#md:parameters"><span>Parameters</span></a></li>
+<li>
+<ul>
+<li><a href="#md:return-value"><span>Return value</span></a></li></ul></li></ul></li>
+<li><a href="#md:api-reference"><span>API <wbr/>Reference</span></a></li>
+<li>
+<ul>
+<li><a href="#md:get-all-items"><span>Get all items</span></a></li>
+<li>
+<ul>
+<li><a href="#md:get-item"><span>Get item</span></a></li>
+<li><a href="#md:addnum1-num2"><span>add(num1, num2)</span></a></li></ul></li></ul></li>
+<li><a href="#md:further-info"><span>Further <wbr/>Info</span></a></li>
+<li>
+<ul>
+<li><a href="#md:how-to-convert-one-color-space-to-another"><span>How to convert one color space to another?</span></a></li>
+<li>
+<ul>
+<li><a href="#md:what-is-color-space"><span>What is color space?</span></a></li>
+<li><a href="#md:how-to-convert--displayp3-color-space-to-srgb"><span>How to convert  <wbr/>Display<wbr/>P3 color space to sRGB?</span></a></li>
+<li><a href="#md:transfer-function-gamma"><span>Transfer function (<wbr/>Gamma)</span></a></li></ul></li></ul></li>
+<li><a href="#md:credits"><span>Credits</span></a></li>
+<li><a href="#md:contributing"><span>Contributing</span></a></li>
+<li>
+<ul>
+<li><a href="#md:how-to-contribute"><span>How to contribute</span></a></li>
+<li><a href="#md:coding-conventions"><span>Coding conventions</span></a></li>
+<li><a href="#md:testing"><span>Testing</span></a></li>
+<li><a href="#md:issues-and-feature-requests"><span>Issues and feature requests</span></a></li>
+<li><a href="#md:license"><span>License</span></a></li></ul></li>
+<li><a href="#md:support"><span>Support</span></a></li>
+<li><a href="#md:license-1"><span>License</span></a></li></ul></li></ul></li></ul></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4-path"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)" id="icon-4-text"></path></svg><span>platform-<wbr/>specific-<wbr/>color-<wbr/>correction</span></a>
+<ul class="tsd-small-nested-navigation">
+<li><a href="modules.html#default"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF984D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-1024-path"></rect><path d="M9.354 16V7.24H12.174C12.99 7.24 13.638 7.476 14.118 7.948C14.606 8.412 14.85 9.036 14.85 9.82C14.85 10.604 14.606 11.232 14.118 11.704C13.638 12.168 12.99 12.4 12.174 12.4H10.434V16H9.354ZM10.434 11.428H12.174C12.646 11.428 13.022 11.284 13.302 10.996C13.59 10.7 13.734 10.308 13.734 9.82C13.734 9.324 13.59 8.932 13.302 8.644C13.022 8.356 12.646 8.212 12.174 8.212H10.434V11.428Z" fill="var(--color-text)" id="icon-1024-text"></path></svg><span>default</span></a></li>
+<li><a href="functions/ColorGrid.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg><span>Color<wbr/>Grid</span></a></li>
+<li><a href="functions/applyColorConversionMatrix.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg><span>apply<wbr/>Color<wbr/>Conversion<wbr/>Matrix</span></a></li>
+<li><a href="functions/convert.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg><span>convert</span></a></li>
+<li><a href="functions/osColorBalance.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg><span>os<wbr/>Color<wbr/>Balance</span></a></li>
+<li><a href="functions/sRgbTransferFunc.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg><span>s<wbr/>Rgb<wbr/>Transfer<wbr/>Func</span></a></li>
+<li><a href="functions/sRgbTransferFuncReverse.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg><span>s<wbr/>Rgb<wbr/>Transfer<wbr/>Func<wbr/>Reverse</span></a></li>
+<li><a href="functions/shiftDisplayP3toSrgb.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg><span>shift<wbr/>Display<wbr/>P3to<wbr/>Srgb</span></a></li>
+<li><a href="functions/shiftSrgbToDisplayP3.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg><span>shift<wbr/>Srgb<wbr/>To<wbr/>Display<wbr/>P3</span></a></li>
+<li><a href="functions/transformColor.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg><span>transform<wbr/>Color</span></a></li>
+<li><a href="functions/updateDeepValue.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg><span>update<wbr/>Deep<wbr/>Value</span></a></li></ul></nav></div></div></div>
+<div class="tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div></body></html>
