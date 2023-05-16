@@ -10,7 +10,7 @@ import {
   sRgbTransferFuncReverse,
   transformColor,
 } from './scripts/functions'
-import osColorBalance from './scripts/osColorBalance'
+import osColorBalance, { OsColorBalanceOptions } from './scripts/osColorBalance'
 import { updateDeepValue } from './scripts/utils'
 
 export {
@@ -18,6 +18,7 @@ export {
   ColorGrid,
   convert,
   osColorBalance,
+  OsColorBalanceOptions,
   shiftDisplayP3toSrgb,
   shiftSrgbToDisplayP3,
   sRgbTransferFunc,

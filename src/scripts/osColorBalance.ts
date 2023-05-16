@@ -3,7 +3,7 @@ import { Platform, PlatformOSType } from 'react-native'
 import { shiftDisplayP3toSrgb, transformColor } from './functions'
 import { updateDeepValue } from './utils'
 
-interface OsColorBalanceOptions {
+export interface OsColorBalanceOptions {
   platforms?: PlatformOSType[]
   balanceFunc?: (arg0: any) => number[]
   clone?: boolean
