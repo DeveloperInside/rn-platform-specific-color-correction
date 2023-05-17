@@ -68,3 +68,4 @@ lib/
 # custom
 src/utils/trash.ts
 .vscode
+rename.js
