@@ -1,6 +1,6 @@
 {
   "name": "platform-specific-color-correction",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Fix inconsistent colors between Android and iOS in React Native by performing a color space conversion.",
   "homepage": "https://github.com/DeveloperInside/rn-platform-specific-color-correction#readme",
   "main": "lib/index.js",
