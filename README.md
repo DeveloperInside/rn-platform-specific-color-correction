@@ -11,6 +11,9 @@ iOS            |  Android
 :-------------------------:|:-------------------------:
 ![ios color correction](/assets/ios-color-correction-fix-ss.png)  |  ![android color correction](/assets/android-color-correction-fix-ss.png)
 
+
+Full documentation includes additional utils: https://projects.ighda.com/pscc/
+
 ## Installation
 
 ```bash
@@ -115,33 +118,6 @@ const updatedColorsArr = osColorBalance(colorsArr, {
   clone: true
 });
 ```
-
-## API Reference
-Update Here!!!
-#### Get all items
-
-```http
-  GET /api/items
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
-
-#### Get item
-
-```http
-  GET /api/items/${id}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
-
-#### add(num1, num2)
-
-Takes two numbers and returns the sum.
-
 
 ## Further Info
 Most standard panels and Android phones use sRGB color space. But ios prefers using DisplayP3 color space which has a wider gamut that means can display more colors on the screen. 
