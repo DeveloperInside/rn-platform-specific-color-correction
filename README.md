@@ -3,13 +3,13 @@
 
 Have you ever noticed that colors on Android and iOS devices appear slightly different when you build your app using React Native? The culprit of this problem is the differing color spaces used by each platform; while Android uses the sRGB color space, iOS employs the DisplayP3 color space.
 
-![DisplayP3 sRGB spaces](/assets/p3-srgb-lab.gif)
+![DisplayP3 sRGB spaces](https://projects.ighda.com/pscc/media/p3-srgb-lab.gif)
 
 This library resolves the issue of inconsistent colors between Android and iOS platforms by performing a color space conversion. This allows the colors to appear almost identical on both platforms, although it's important to note that some technical limitations exist.
 
 iOS            |  Android
 :-------------------------:|:-------------------------:
-![ios color correction](/assets/ios-color-correction-fix-ss.png)  |  ![android color correction](/assets/android-color-correction-fix-ss.png)
+![ios color correction](https://projects.ighda.com/pscc/media/ios-color-correction-fix-ss.png)  |  ![android color correction](https://projects.ighda.com/pscc/media/android-color-correction-fix-ss.png)
 
 
 Full documentation includes additional utils: https://projects.ighda.com/pscc/
@@ -123,12 +123,12 @@ const updatedColorsArr = osColorBalance(colorsArr, {
 Most standard panels and Android phones use sRGB color space. But ios prefers using DisplayP3 color space which has a wider gamut that means can display more colors on the screen. 
 If we compare two color spaces, you can see the difference clearly. 
 
-![DisplayP3 vs sRGB](/assets/p3-vs-srgb.png)
+![DisplayP3 vs sRGB](https://projects.ighda.com/pscc/media/p3-vs-srgb.png)
 
 We mostly pick our colors from sRGB color space, and if we want to use the same colors on IOS, we need to convert these colors. 
 You can make this conversion using this library or manually for IOS distribution by using the colorsync utility app with a Mac.
 
-![colorsync sample](/assets/colorsync-sample.png)
+![colorsync sample](https://projects.ighda.com/pscc/media/colorsync-sample.png)
 
 As you can see, there is a slight difference between the red, green, and blue color values of this mustard color in two color spaces. If we want to catch up with consistency between platforms, we need conversion.
 
@@ -190,10 +190,10 @@ Both before and after utilizing this transformation matrix, it is necessary to a
 sRGB and DisplayP3 use the same transfer function. You can find how to calculate the transfer function and more info at https://en.wikipedia.org/wiki/SRGB
 
 sRGB to CIE XYZ transfer function  
-![transfer function gamma](/assets/gamma-srgb-to-xyz.svg)
+![transfer function gamma](https://projects.ighda.com/pscc/media/gamma-srgb-to-xyz.svg)
 
 CIE XYZ to sRGB transfer function  
-![reverse transfer function gamma](/assets/gamma-xyz-to-srgb.svg)
+![reverse transfer function gamma](https://projects.ighda.com/pscc/media/gamma-xyz-to-srgb.svg)
 
 ## Credits
 
