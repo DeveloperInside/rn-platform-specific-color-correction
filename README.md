@@ -26,6 +26,8 @@ Full documentation includes additional utils: https://projects.ighda.com/pscc/
 If you have a theme object that contains your colors, you can simply call osColorBalance(themeObject) once, and it will update all the colors in the object. Here's an example:
 
 ```javascript
+import { osColorBalance } from 'platform-specific-color-correction';
+
 const theme = {
     dark: {
         primary: '#FF5733',
@@ -40,7 +42,7 @@ function App() {
     },[])
 
   return <Navigation />
-}
+};
 ```
 
 If you prefer not to modify your original theme object, you can use the clone property when calling osColorBalance(). Here's an example:
